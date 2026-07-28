@@ -1,0 +1,23 @@
+{
+  "total_weights": {
+    "authority_dependence": 0.30,
+    "verification_laziness": 0.25,
+    "confidence_miscalibration": 0.30,
+    "understanding_illusion": 0.15
+  },
+  "verification_laziness": {
+    "primary_source": 0,
+    "independent_source": 10,
+    "provided_citation": 25,
+    "another_ai": 70,
+    "same_ai_again": 85,
+    "none": 100
+  },
+  "evidence_response": {
+    "change_after_evidence": 0,
+    "remain_uncertain": 20,
+    "reject_valid_evidence": 75,
+    "ask_ai_to_rebut": 100,
+    "not_applicable": 0
+  }
+}
