@@ -1,0 +1,58 @@
+{
+  "clear_tool_user": {
+    "name": "清醒工具人",
+    "subtitle": "会用AI，但不会把判断一起外包。",
+    "tags": ["证据优先", "不吃话术", "校准稳定"],
+    "share_line": "你不是反AI，你只是还保留了脑子。",
+    "asset": "assets/personas/clear_tool_user.webp"
+  },
+  "cautious_cyber_apprentice": {
+    "name": "谨慎型赛博学徒",
+    "subtitle": "知道AI会错，忙起来也会偶尔偷懒。",
+    "tags": ["基本有判断", "偶尔图省事", "可塑性高"],
+    "share_line": "你会借力，但还没把方向盘交出去。",
+    "asset": "assets/personas/cautious_cyber_apprentice.webp"
+  },
+  "half_understood_master": {
+    "name": "半懂型效率大师",
+    "subtitle": "效率是真的，掌握不一定是真的。",
+    "tags": ["效率很高", "见过当掌握", "理解感过强"],
+    "share_line": "你提升了产出，但不等于同步升级了理解。",
+    "asset": "assets/personas/half_understood_master.webp"
+  },
+  "high_speed_repeater": {
+    "name": "高速复读机",
+    "subtitle": "很会转述AI，一追问细节就开始冒烟。",
+    "tags": ["输出拉满", "来源成谜", "细节空心"],
+    "share_line": "会说很多，不等于真的知道很多。",
+    "asset": "assets/personas/high_speed_repeater.webp"
+  },
+  "fog_operator": {
+    "name": "迷雾操作员",
+    "subtitle": "看起来像懂了，其实只是被解释安抚了。",
+    "tags": ["看懂即掌握", "边界模糊", "朦胧自信"],
+    "share_line": "你获得了理解感，但不一定获得了理解。",
+    "asset": "assets/personas/fog_operator.webp"
+  },
+  "silicon_spokesperson": {
+    "name": "硅基代言人",
+    "subtitle": "AI一旦说得像真的，你就想替它发言。",
+    "tags": ["崇拜确定性", "权威依赖", "流畅即正确"],
+    "share_line": "你不只是信AI，你还想替它开发布会。",
+    "asset": "assets/personas/silicon_spokesperson.webp"
+  },
+  "multi_model_voter": {
+    "name": "多模投票教徒",
+    "subtitle": "问了三个AI，不等于做了独立验证。",
+    "tags": ["多模迷信", "表决式求真", "看似严谨"],
+    "share_line": "你不是在核实，你是在组织AI开会。",
+    "asset": "assets/personas/multi_model_voter.webp"
+  },
+  "ai_authorized_know_it_all": {
+    "name": "AI授权懂王",
+    "subtitle": "AI负责生成答案，你负责坚定相信。",
+    "tags": ["高置信错误", "流畅即正确", "独立验证稀缺"],
+    "share_line": "不是不会思考，只是把判断托管了。",
+    "asset": "assets/personas/ai_authorized_know_it_all.webp"
+  }
+}
