@@ -1,0 +1,57 @@
+{
+  "scenario": "mixed",
+  "answers": [
+    {
+      "question_id": "mixed_b01",
+      "initial_answer": "C"
+    },
+    {
+      "question_id": "mixed_b02",
+      "initial_answer": "C"
+    },
+    {
+      "question_id": "mixed_b03",
+      "initial_answer": "C"
+    },
+    {
+      "question_id": "mixed_b04",
+      "initial_answer": "C"
+    },
+    {
+      "question_id": "mixed_b05",
+      "initial_answer": "B"
+    },
+    {
+      "question_id": "mixed_b06",
+      "initial_answer": "D"
+    },
+    {
+      "question_id": "mixed_i01",
+      "initial_answer": "B",
+      "final_answer": "A"
+    },
+    {
+      "question_id": "mixed_i02",
+      "initial_answer": "C",
+      "final_answer": "A"
+    },
+    {
+      "question_id": "mixed_i03",
+      "initial_answer": "B",
+      "final_answer": "C"
+    },
+    {
+      "question_id": "mixed_i04",
+      "initial_answer": "B",
+      "final_answer": "B"
+    },
+    {
+      "question_id": "mixed_t01",
+      "initial_answer": "B"
+    },
+    {
+      "question_id": "mixed_t02",
+      "initial_answer": "C"
+    }
+  ]
+}

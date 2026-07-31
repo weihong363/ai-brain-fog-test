@@ -1,9 +1,14 @@
 {
+  "version": "1.3.0",
   "total_weights": {
     "authority_dependence": 0.30,
     "verification_laziness": 0.25,
     "confidence_miscalibration": 0.30,
     "understanding_illusion": 0.15
+  },
+  "confidence_weights": {
+    "answer_calibration": 0.75,
+    "evidence_response": 0.25
   },
   "verification_laziness": {
     "primary_source": 0,
@@ -19,5 +24,111 @@
     "reject_valid_evidence": 75,
     "ask_ai_to_rebut": 100,
     "not_applicable": 0
+  },
+  "understanding_illusion": {
+    "claimed_and_succeeded": 0,
+    "not_claimed_but_succeeded": 10,
+    "not_claimed_and_failed": 30,
+    "claimed_but_failed": 100
+  },
+  "authority_behavior": {
+    "changed_correct_to_ai_wrong": 100,
+    "accepted_ai_wrong": 90,
+    "followed_ai_after_cross_model": 80,
+    "rejected_ai_without_evidence": 25,
+    "verified_independently": 0,
+    "other": 50
+  },
+  "classification": [
+    {
+      "persona_id": "ai_authorized_know_it_all",
+      "conditions": [
+        {"metric": "authority_dependence", "operator": "gte", "value": 75},
+        {"metric": "changed_correct_to_wrong_after_ai", "operator": "gte", "value": 2}
+      ]
+    },
+    {
+      "persona_id": "multi_model_voter",
+      "conditions": [
+        {"metric": "cross_model_only_checks", "operator": "gte", "value": 2},
+        {"metric": "independent_source_checks", "operator": "eq", "value": 0}
+      ]
+    },
+    {
+      "persona_id": "silicon_spokesperson",
+      "conditions": [
+        {"metric": "authority_dependence", "operator": "gte", "value": 75}
+      ]
+    },
+    {
+      "persona_id": "fog_operator",
+      "conditions": [
+        {"metric": "understanding_illusion", "operator": "gte", "value": 75}
+      ]
+    },
+    {
+      "persona_id": "high_speed_repeater",
+      "conditions": [
+        {"metric": "restate_without_support", "operator": "gte", "value": 2},
+        {"metric": "authority_verification_max", "operator": "gte", "value": 55}
+      ]
+    },
+    {
+      "persona_id": "half_understood_master",
+      "conditions": [
+        {"metric": "understanding_illusion", "operator": "gte", "value": 60}
+      ]
+    },
+    {
+      "persona_id": "clear_tool_user",
+      "conditions": [
+        {"metric": "max_dimension_score", "operator": "lte", "value": 30}
+      ]
+    }
+  ],
+  "fallback_persona": "cautious_cyber_apprentice",
+  "hidden_tags": [
+    {
+      "label": "AI反向改选择",
+      "conditions": [
+        {"metric": "changed_correct_to_wrong_after_ai", "operator": "gte", "value": 2}
+      ]
+    },
+    {
+      "label": "证据免疫",
+      "conditions": [
+        {"metric": "rejected_valid_evidence", "operator": "gte", "value": 1}
+      ]
+    },
+    {
+      "label": "AI会议召集人",
+      "conditions": [
+        {"metric": "cross_model_only_checks", "operator": "gte", "value": 2}
+      ]
+    },
+    {
+      "label": "解释复读",
+      "conditions": [
+        {"metric": "restate_without_support", "operator": "gte", "value": 2}
+      ]
+    },
+    {
+      "label": "理解感超载",
+      "conditions": [
+        {"metric": "understanding_illusion", "operator": "gte", "value": 75}
+      ]
+    },
+    {
+      "label": "免验证通行",
+      "conditions": [
+        {"metric": "accepted_without_evidence", "operator": "gte", "value": 3}
+      ]
+    }
+  ],
+  "recommendations": {
+    "authority_dependence": "下次准备采纳AI结论前，先写下自己的判断和一条可独立核查的依据。",
+    "verification_laziness": "把“再问一个AI”换成检查原始资料、官方文档或真正独立的来源。",
+    "confidence_miscalibration": "遇到“必然、毫无疑问”式结论时，先区分事实、推断和仍然未知的部分。",
+    "understanding_illusion": "理解一段解释后，换一个关键条件重新判断，再决定自己是否真的掌握。"
   }
 }

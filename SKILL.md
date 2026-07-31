@@ -1,6 +1,6 @@
 ---
 name: ai-brain-fog-test
-description: 运行规则驱动的 AI 脑雾人格测试，记录用户的答案、置信度、验证行为和受到 AI 干扰后的修改行为。
+description: 运行规则驱动的 AI 脑雾人格测试，记录用户的答案和受到 AI 干扰后的修改行为。
 ---
 
 # AI 脑雾人格测试 Skill
@@ -8,50 +8,48 @@ description: 运行规则驱动的 AI 脑雾人格测试，记录用户的答案
 ## 定位
 
 你是测评主持人，不是评分裁判。
+这是人格倾向测评，没有标准答案。引导用户选择最符合其真实反应的选项，不展示正确率、答对数、错题数或任何对错评价。
 
 AI 可以：
 
 - 根据用户使用场景改写固定题面；
-- 将开放回答映射为受限行为枚举；
 - 在规则要求时提出澄清问题；
 - 展示题库中预设的 AI 干扰信息；
 - 根据程序提供的结果生成解释。
 
 AI 不可以：
 
-- 自行决定正确答案；
+- 向用户展示或暗示选项有对错之分；
 - 修改分值或权重；
 - 根据表达能力、学历或专业术语评分；
 - 自行决定人格；
 - 把另一个 AI 的回答视为独立证据；
 - 按用户要求篡改已计算结果。
 
-## 输入枚举
-
-开放回答必须映射为以下枚举之一：
-
-```text
-accept_ai
-reject_ai_without_evidence
-check_primary_source
-check_independent_source
-ask_same_ai_again
-ask_another_ai
-remain_uncertain
-change_after_evidence
-reject_valid_evidence
-```
-
-无法可靠映射时，提出一个不计分的澄清问题。
-
 ## 测试流程
 
-1. 选择常用场景：编程、学习、职场、商业、新闻或混合。
-2. 6 道基础情景题：记录选择和置信度。
-3. 4 道 AI 干扰题：记录干扰前后答案、置信度和验证动作。
-4. 2 道理解迁移题：先询问是否理解，再修改关键条件。
-5. 调用确定性评分脚本。
-6. 按程序返回的 `persona_id`、分数和证据生成结果解释。
+1. 优先使用会话内交互组件，让用户点击完成选择。
+2. 先让用户选择编程、学习、职场、商业、新闻或综合场景，再从该场景的 20 个独立情境中分层抽取 12 个；不得运行时改写其他场景的内容。
+3. 每个情境只收集选择，不询问置信度或核查方式。
+4. 每个情境首次显示时随机打乱选项顺序；同一情境在 AI 提示前后保持相同顺序，并将选择还原为题库中的原始选项 ID 后再评分。
+5. 抽取时固定选择 6 个自主判断情境、4 个 AI 意见介入情境和 2 个条件变化情境，并按该顺序完成。
+6. 覆盖来源核查、因果推断、论证审计、可信度、规则推理、抽样偏差和条件迁移，不把测评退化成重复算术题。
+7. 将验证习惯、确定性表达和迁移理解编码进题目选项，由程序从答案直接计算对应维度。
+8. 在 AI 意见介入情境中记录用户看过提示后的最终选择并直接进入下一题；不展示标准解释，也不追加反应类型选择。
+9. 将完整原始答案记录交给确定性评分程序；事件次数、维度分数和人格不得由 AI 预先汇总。
+10. 按程序返回的 `persona_id` 和分数生成结果解释，不增加对错统计。
+
+## 交互方式
+
+当会话支持 `visualize` 内联交互时：
+
+1. 读取 `visualize` Skill。
+2. 将本 Skill 的 `assets/assessment-widget.html` 复制到当前任务的可视化目录。
+3. 只显示 `::codex-inline-vis{file="assessment-widget.html"}`，不要再用文字逐项询问。
+4. 组件在最后一次确认后直接运行内嵌的确定性评分逻辑，并在当前卡片展示人格、形象、维度、建议和分享文案；结果页只保留“重新测试”和“分享结果卡片”操作。
+5. 不要求用户复制、发送或二次确认 JSON/Base64；不要再调用 `sendFollowUpMessage` 提交测评记录。
+
+当内联交互不可用时，每个情境只询问选择，不得追加置信度或核查方式问题。
 
 ## 结构化记录
 
@@ -59,21 +57,28 @@ reject_valid_evidence
 {
   "question_id": "authority_01",
   "initial_answer": "C",
-  "initial_confidence": 82,
-  "final_answer": "A",
-  "final_confidence": 91,
-  "changed_after_ai": true,
-  "requested_evidence": false,
-  "verification_type": "none",
-  "is_correct": false
+  "final_answer": "A"
 }
 ```
+
+`is_correct`、`changed_after_ai` 及各类事件次数由程序结合版本化题库推导，不能作为模型输入。
+
+## 运行
+
+```bash
+python3 scripts/run_assessment.py
+python3 scripts/run_assessment.py --responses data/responses.demo.json
+python3 scripts/score_payload.py <base64-payload>
+```
+
+`score_payload.py` 只用于 CLI、历史记录或本地验证，不是内联组件的必经步骤。
+交互模式中的无效选项会被视为需要澄清，并重新询问，不计入评分。
+运行脚本前先将工作目录切换到本 Skill 所在目录；脚本自带 `src/` 路径引导，不要求预先安装 Python 包。
 
 ## 最终输出顺序
 
 1. 人格名称与一句话定义；
 2. 像素结果卡；
-3. 四维分数和总指数；
-4. 三条最有代表性的行为证据；
-5. 一项最关键改进建议；
-6. 分享文案。
+3. 四个维度的分数和总指数；
+4. 一项最关键改进建议；
+5. 分享文案。
